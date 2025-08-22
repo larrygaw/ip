@@ -19,3 +19,8 @@ java -classpath ..\bin Chatter < input.txt > ACTUAL.TXT
 
 REM compare the output to the expected output
 FC ACTUAL.TXT EXPECTED.TXT
+IF ERRORLEVEL 1 (
+    echo TEST FAILED
+) ELSE (
+    echo TEST PASSED)
+)
