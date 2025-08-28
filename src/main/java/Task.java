@@ -21,7 +21,7 @@ public abstract class Task {
 
     public abstract String toSaveFormat();
 
-    public static Task fromSaveFormat(String line) {
+    public static Task fromSaveFormat(String line) throws ChatterException {
         String[] parts = line.split(" \\| ");
         String type = parts[0];
         boolean isDone = parts[1].equals("1");
