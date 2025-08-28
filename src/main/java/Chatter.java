@@ -12,8 +12,8 @@ public class Chatter {
         String addingTask = "   Got it. I've added this task:";
         String deletingTask = "   Noted. I've removed this task:";
 
-        //storage for task
-        ArrayList<Task> taskList = new ArrayList<>();
+        Storage storage = new Storage("data/chatter.txt");
+        ArrayList<Task> taskList = storage.load();
 
         System.out.println(line);
         System.out.println(defaultMessage);
@@ -41,11 +41,13 @@ public class Chatter {
                     System.out.println(line);
                 } else if (input.startsWith("todo")) {
                     String[] parts = input.split(" ", 2);
+                    //if user did not put in description for todo task, error will be thrown
                     if (parts.length < 2 || parts[1].isBlank()) {
                         throw new ChatterException("todoTask must have a description!");
                     }
                     ToDos t = new ToDos(parts[1]);
                     taskList.add(t);
+                    storage.save(taskList);
                     System.out.println(line);
                     System.out.println(addingTask);
                     System.out.println("     " + t);
@@ -53,12 +55,14 @@ public class Chatter {
                     System.out.println(line);
                 } else if (input.startsWith("deadline")) {
                     String[] parts = input.split(" ", 2);
+                    //if user did not put in description and deadline for deadline task, error will be thrown
                     if (parts.length < 2 || !parts[1].contains("/by")) {
                         throw new ChatterException("deadlineTask must have description and /by!");
                     }
                     String[] details = parts[1].split(" /by ", 2);
                     Deadline t = new Deadline(details[0], details[1]);
                     taskList.add(t);
+                    storage.save(taskList);
                     System.out.println(line);
                     System.out.println(addingTask);
                     System.out.println("     " + t);
@@ -66,6 +70,7 @@ public class Chatter {
                     System.out.println(line);
                 } else if (input.startsWith("event")) {
                     String[] parts = input.split(" ", 2);
+                    //if user did not put in description, start and end time for event task, error will be thrown
                     if (parts.length < 2 || !parts[1].contains("/from") || !parts[1].contains("/to")) {
                         throw new ChatterException("eventTask must have description, /from and /to!");
                     }
@@ -73,6 +78,7 @@ public class Chatter {
                     String[] getTiming = getDetails[1].split(" /to ");
                     Events t = new Events(getDetails[0], getTiming[0], getTiming[1]);
                     taskList.add(t);
+                    storage.save(taskList);
                     System.out.println(line);
                     System.out.println(addingTask);
                     System.out.println("     " + t);
@@ -80,12 +86,14 @@ public class Chatter {
                     System.out.println(line);
                 } else if (input.startsWith("delete")){
                     String[] parts = input.split(" ");
+                    //if user do not give index of task to delete, error will be thrown
                     if (parts.length < 2) {
                         throw new ChatterException("Provide index!");
                     }
                     int index = Integer.parseInt(parts[1]) - 1;
                     Task t = taskList.get(index);
                     taskList.remove(index);
+                    storage.save(taskList);
                     System.out.println(line);
                     System.out.println(deletingTask);
                     System.out.println("     " + t);
@@ -93,6 +101,7 @@ public class Chatter {
                     System.out.println(line);
                 } else if (input.startsWith("mark") || input.startsWith("unmark")) {
                     String[] parts = input.split(" ");
+                    //if user do not give index of task to mark/unmark, error will be thrown
                     if (parts.length < 2) {
                         throw new ChatterException("Provide index!");
                     }
@@ -111,6 +120,7 @@ public class Chatter {
                         System.out.println("     " + t);
                         System.out.println(line);
                     }
+                    storage.save(taskList);
                 } else {
                     throw new ChatterException("SORRY! I am not qualified to do this!");
                 }
