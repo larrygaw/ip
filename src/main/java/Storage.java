@@ -12,13 +12,13 @@ public class Storage {
         this.filePath = Paths.get(filePath);
     }
 
-    public ArrayList<Task> load() {
+    public TaskList load() {
         ArrayList<Task> tasks = new ArrayList<>();
         try {
             if (!Files.exists(filePath)) {
                 Files.createDirectories(filePath.getParent());
                 Files.createFile(filePath);
-                return tasks;
+                return new TaskList();
             }
             List<String> lines = Files.readAllLines(filePath);
             for (String line: lines) {
@@ -31,12 +31,12 @@ public class Storage {
         } catch (IOException e) {
             System.out.println("    Error loading file: " + e.getMessage());
         }
-        return tasks;
+        return new TaskList(tasks);
     }
 
-    public void save(ArrayList<Task> tasks) {
+    public void save(TaskList tasks) {
         List<String> lines = new ArrayList<>();
-        for (Task t: tasks) {
+        for (Task t: tasks.getAllTasks()) {
             lines.add(t.toSaveFormat());
         }
         try {

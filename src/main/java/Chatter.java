@@ -1,7 +1,6 @@
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Chatter {
@@ -17,7 +16,7 @@ public class Chatter {
         String deletingTask = "   Noted. I've removed this task:";
 
         Storage storage = new Storage("data/chatter.txt");
-        ArrayList<Task> taskList = storage.load();
+        TaskList tasks = storage.load();
 
         System.out.println(line);
         System.out.println(defaultMessage);
@@ -39,8 +38,8 @@ public class Chatter {
                     System.out.println(line);
                     System.out.println(listMessage);
                     //print every task in taskList
-                    for (int i = 0; i < taskList.size(); i++) {
-                        System.out.println("   " + (i + 1) + "." + taskList.get(i));
+                    for (int i = 0; i < tasks.size(); i++) {
+                        System.out.println("   " + (i + 1) + "." + tasks.get(i));
                     }
                     System.out.println(line);
                 } else if (input.startsWith("todo")) {
@@ -50,12 +49,12 @@ public class Chatter {
                         throw new ChatterException("todoTask must have a description!");
                     }
                     ToDos t = new ToDos(parts[1].trim());
-                    taskList.add(t);
-                    storage.save(taskList);
+                    tasks.add(t);
+                    storage.save(tasks);
                     System.out.println(line);
                     System.out.println(addingTask);
                     System.out.println("     " + t);
-                    System.out.println("   Now you have " + taskList.size() + " tasks in the list.");
+                    System.out.println("   Now you have " + tasks.size() + " tasks in the list.");
                     System.out.println(line);
                 } else if (input.startsWith("deadline")) {
                     String[] parts = input.split(" ", 2);
@@ -68,12 +67,12 @@ public class Chatter {
                         throw new ChatterException("/by must be followed by deadline in yyyy-MM-dd HHmm format!");
                     }
                     Deadline t = new Deadline(details[0].trim(), details[1].trim());
-                    taskList.add(t);
-                    storage.save(taskList);
+                    tasks.add(t);
+                    storage.save(tasks);
                     System.out.println(line);
                     System.out.println(addingTask);
                     System.out.println("     " + t);
-                    System.out.println("   Now you have " + taskList.size() + " tasks in the list.");
+                    System.out.println("   Now you have " + tasks.size() + " tasks in the list.");
                     System.out.println(line);
                 } else if (input.startsWith("event")) {
                     String[] parts = input.split(" ", 2);
@@ -92,12 +91,12 @@ public class Chatter {
                                 + "event start and end time in yyyy-MM-dd HHmm format respectively!");
                     }
                     Events t = new Events(getDetails[0].trim(), getTiming[0].trim(), getTiming[1].trim());
-                    taskList.add(t);
-                    storage.save(taskList);
+                    tasks.add(t);
+                    storage.save(tasks);
                     System.out.println(line);
                     System.out.println(addingTask);
                     System.out.println("     " + t);
-                    System.out.println("   Now you have " + taskList.size() + " tasks in the list.");
+                    System.out.println("   Now you have " + tasks.size() + " tasks in the list.");
                     System.out.println(line);
                 } else if (input.startsWith("delete")) {
                     String[] parts = input.split(" ");
@@ -106,13 +105,13 @@ public class Chatter {
                         throw new ChatterException("Provide index!");
                     }
                     int index = Integer.parseInt(parts[1]) - 1;
-                    Task t = taskList.get(index);
-                    taskList.remove(index);
-                    storage.save(taskList);
+                    Task t = tasks.get(index);
+                    tasks.remove(index);
+                    storage.save(tasks);
                     System.out.println(line);
                     System.out.println(deletingTask);
                     System.out.println("     " + t);
-                    System.out.println("   Now you have " + taskList.size() + " tasks in the list.");
+                    System.out.println("   Now you have " + tasks.size() + " tasks in the list.");
                     System.out.println(line);
                 } else if (input.startsWith("mark") || input.startsWith("unmark")) {
                     String[] parts = input.split(" ");
@@ -121,21 +120,19 @@ public class Chatter {
                         throw new ChatterException("Provide index!");
                     }
                     int index = Integer.parseInt(parts[1]) - 1;
-                    Task t = taskList.get(index);
+                    Task t = tasks.get(index);
                     if (parts[0].equals("mark")) {
                         t.markAsDone();
                         System.out.println(line);
                         System.out.println(marking);
-                        System.out.println("     " + t);
-                        System.out.println(line);
                     } else {
                         t.unmark();
                         System.out.println(line);
                         System.out.println(unmarking);
-                        System.out.println("     " + t);
-                        System.out.println(line);
                     }
-                    storage.save(taskList);
+                    System.out.println("     " + t);
+                    System.out.println(line);
+                    storage.save(tasks);
                 } else if (input.startsWith("on ")) {
                     String[] parts = input.split(" ");
                     if (parts.length < 2 || parts[1].isBlank()) {
@@ -147,7 +144,7 @@ public class Chatter {
                         System.out.println("    Tasks occurring on "
                                 + date.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ":");
                         boolean found = false;
-                        for (Task task : taskList) {
+                        for (Task task : tasks.getAllTasks()) {
                             if (task instanceof Deadline) {
                                 Deadline d = (Deadline) task;
                                 if (d.getDateTime().toLocalDate().equals(date)) {
