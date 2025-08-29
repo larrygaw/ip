@@ -26,20 +26,20 @@ public class Events extends Task{
     }
 
     public LocalDateTime getFrom() {
-        return this.from;
+        return from;
     }
 
     public LocalDateTime getTo() {
-        return this.to;
+        return to;
     }
 
     @Override
     public String toSaveFormat() {
         if (isDone) {
-            return "D | 1 | " + description + " | " + from.format(INPUT_FORMAT)
+            return "E | 1 | " + description + " | " + from.format(INPUT_FORMAT)
                     + " | " + to.format(INPUT_FORMAT);
         } else {
-            return "D | 0 | " + description + " | " + from.format(INPUT_FORMAT)
+            return "E | 0 | " + description + " | " + from.format(INPUT_FORMAT)
                     + " | " + to.format(INPUT_FORMAT);
         }
     }

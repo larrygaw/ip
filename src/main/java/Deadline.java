@@ -17,7 +17,7 @@ public class Deadline extends Task{
     }
 
     public LocalDateTime getDateTime() {
-        return this.by;
+        return by;
     }
 
     @Override
@@ -25,7 +25,7 @@ public class Deadline extends Task{
         if (isDone) {
             return "D | 1 | " + description + " | " + by.format(INPUT_FORMAT);
         } else {
-            return "D | 0 | " + description + " | " + by;
+            return "D | 0 | " + description + " | " + by.format(INPUT_FORMAT);
         }
     }
 

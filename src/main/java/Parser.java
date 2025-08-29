@@ -1,0 +1,118 @@
+import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
+public class Parser {
+    public static boolean parse(String input, TaskList tasks, Ui ui, Storage storage)
+            throws ChatterException {
+
+        String[] parts = input.split(" ", 2);
+        String command = parts[0];
+
+        switch (command) {
+        case "bye":
+            ui.showExit();
+            return true;
+        case "list":
+            ui.showList(tasks);
+            return false;
+        case "todo":
+            if (parts.length < 2 || parts[1].isBlank()) {
+                throw new ChatterException("todoTask must have a description!");
+            }
+            ToDos t = new ToDos(parts[1].trim());
+            tasks.add(t);
+            storage.save(tasks);
+            ui.showAdded(t, tasks.size());
+            return false;
+        case "deadline":
+            if (parts.length < 2 || !parts[1].contains("/by")) {
+                throw new ChatterException("deadlineTask must have description and /by!");
+            }
+            String[] details = parts[1].split(" /by ", 2);
+            if (details.length == 1) {
+                throw new ChatterException("/by must be followed by deadline in yyyy-MM-dd HHmm format!");
+            }
+            Deadline d = new Deadline(details[0].trim(), details[1].trim());
+            tasks.add(d);
+            storage.save(tasks);
+            ui.showAdded(d, tasks.size());
+            return false;
+        case "event":
+            if (parts.length < 2 || !parts[1].contains("/from") || !parts[1].contains("/to")) {
+                throw new ChatterException("eventTask must have description, /from and /to!");
+            }
+            String[] fromSplit = parts[1].split(" /from ", 2);
+            if (fromSplit.length == 1) {
+                throw new ChatterException("eventTask must have description and "
+                        + "/from must be followed by event start time in yyyy-MM-dd HHmm format!");
+            }
+            String[] toSplit = fromSplit[1].split(" /to ");
+            if (toSplit.length == 1) {
+                throw new ChatterException("/from and /to must be followed by "
+                        + "event start and end time in yyyy-MM-dd HHmm format respectively!");
+            }
+            Events e = new Events(fromSplit[0].trim(), toSplit[0].trim(), toSplit[1].trim());
+            tasks.add(e);
+            storage.save(tasks);
+            ui.showAdded(e, tasks.size());
+            return false;
+        case "delete":
+            if (parts.length < 2) {
+                throw new ChatterException("Provide index!");
+            }
+            try {
+                int index = Integer.parseInt(parts[1]) - 1;
+                Task deleteTask = tasks.get(index);
+                tasks.remove(index);
+                storage.save(tasks);
+                ui.showDeleted(deleteTask, tasks.size());
+            } catch (NumberFormatException nfe) {
+                throw new ChatterException("Task number must be an integer!");
+            }
+            return false;
+        case "mark":
+            if (parts.length < 2) {
+                throw new ChatterException("Provide index!");
+            }
+            try {
+                int index = Integer.parseInt(parts[1]) - 1;
+                Task markTask = tasks.get(index);
+                markTask.markAsDone();
+                ui.showMarked(markTask);
+            } catch (NumberFormatException nfe) {
+                throw new ChatterException("Task number must be an integer!");
+            }
+            storage.save(tasks);
+            return false;
+        case "unmark":
+            if (parts.length < 2) {
+                throw new ChatterException("Provide index!");
+            }
+            try {
+                int index = Integer.parseInt(parts[1]) - 1;
+                Task unmarkTask = tasks.get(index);
+                unmarkTask.unmark();
+                ui.showUnmarked(unmarkTask);
+            } catch (NumberFormatException nfe) {
+                throw new ChatterException("Task number must be an integer!");
+            }
+            storage.save(tasks);
+            return false;
+        case "on":
+            if (parts.length < 2 || parts[1].isBlank()) {
+                throw new ChatterException("Please provide a date in yyyy-MM-dd format!");
+            }
+            try {
+                LocalDate date = LocalDate.parse(parts[1].trim(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                ui.showTasksOnDate(date, tasks);
+            } catch (DateTimeParseException dtpe) {
+                throw new ChatterException("Invalid date format! Please use yyyy-MM-dd!");
+            }
+            return false;
+        default:
+            throw new ChatterException("SORRY! I am not qualified to do this!");
+        }
+    }
+}
