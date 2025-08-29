@@ -64,7 +64,7 @@ public class Ui {
 
     public void showUnmarked(Task t) {
         System.out.println(line);
-        System.out.println("   OK, I've marked this task as not done yet:");
+        System.out.println("   OK, I've unmarked this task:");
         System.out.println("     " + t);
         System.out.println(line);
     }
