@@ -1,6 +1,14 @@
+package chatter.ui;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
+
+import chatter.exception.ChatterException;
+import chatter.task.Deadline;
+import chatter.task.Events;
+import chatter.task.Task;
+import chatter.task.TaskList;
 
 public class Ui {
     private final Scanner sc;
@@ -12,10 +20,6 @@ public class Ui {
 
     public String readCommand() {
         return sc.nextLine();
-    }
-
-    public void showLine() {
-        System.out.println(line);
     }
 
     public void showWelcome() {
@@ -99,12 +103,6 @@ public class Ui {
         if (!found) {
             System.out.println("   No tasks on this date.");
         }
-        System.out.println(line);
-    }
-
-    public void showMessage(String msg) {
-        System.out.println(line);
-        System.out.println("   " + msg);
         System.out.println(line);
     }
 }
