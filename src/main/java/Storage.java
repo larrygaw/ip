@@ -29,7 +29,8 @@ public class Storage {
                 }
             }
         } catch (IOException e) {
-            System.out.println("    Error loading file: " + e.getMessage());
+            System.out.println("    Error loading file: " + e.getMessage() + ". Generating an empty tracker!");
+            return new TaskList();
         }
         return new TaskList(tasks);
     }
