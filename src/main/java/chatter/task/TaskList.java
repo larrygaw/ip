@@ -1,4 +1,8 @@
+package chatter.task;
+
 import java.util.ArrayList;
+
+import chatter.exception.ChatterException;
 
 public class TaskList {
     private final ArrayList<Task> tasks;

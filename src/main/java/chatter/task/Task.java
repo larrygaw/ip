@@ -1,3 +1,7 @@
+package chatter.task;
+
+import chatter.exception.ChatterException;
+
 public abstract class Task {
     protected String description;
     protected boolean isDone;

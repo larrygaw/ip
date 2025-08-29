@@ -1,3 +1,10 @@
+package chatter.ui;
+
+import chatter.exception.ChatterException;
+import chatter.parser.Parser;
+import chatter.storage.Storage;
+import chatter.task.TaskList;
+
 public class Chatter {
     private final Storage storage;
     private final TaskList tasks;

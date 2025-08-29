@@ -1,9 +1,14 @@
+package chatter.storage;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+
+import chatter.task.Task;
+import chatter.task.TaskList;
 
 public class Storage {
     private final Path filePath;
