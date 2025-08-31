@@ -1,10 +1,10 @@
 package chatter.task;
 
+import chatter.exception.ChatterException;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-
-import chatter.exception.ChatterException;
 
 public class Deadline extends Task{
     protected LocalDateTime by;

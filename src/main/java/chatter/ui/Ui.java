@@ -1,14 +1,14 @@
 package chatter.ui;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Scanner;
-
 import chatter.exception.ChatterException;
 import chatter.task.Deadline;
 import chatter.task.Events;
 import chatter.task.Task;
 import chatter.task.TaskList;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Scanner;
 
 public class Ui {
     private final Scanner sc;

@@ -1,9 +1,5 @@
 package chatter.parser;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-
 import chatter.exception.ChatterException;
 import chatter.storage.Storage;
 import chatter.task.Deadline;
@@ -12,6 +8,10 @@ import chatter.task.Task;
 import chatter.task.TaskList;
 import chatter.task.ToDos;
 import chatter.ui.Ui;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class Parser {
     public static boolean parse(String input, TaskList tasks, Ui ui, Storage storage)
