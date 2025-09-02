@@ -44,6 +44,15 @@ public abstract class Task {
     }
 
     /**
+     * Returns the description of this task.
+     *
+     * @return the task description as a string
+     */
+    public String getDescription() {
+        return description;
+    }
+
+    /**
      * Returns the task in a string format suitable for saving to a file.
      *
      * @return Formatted string representing the task for storage.

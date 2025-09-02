@@ -155,4 +155,18 @@ public class Ui {
         }
         System.out.println(line);
     }
+
+    /**
+     * Displays the list of tasks that match a given find search query.
+     *
+     * @param matchingTasks the list of tasks that matched the search keyword
+     */
+    public void showFound(TaskList matchingTasks) throws ChatterException {
+        System.out.println(line);
+        System.out.println("   Here are the matching tasks in your list:");
+        for(int i = 0; i < matchingTasks.size(); i++) {
+            System.out.println("   " + (i + 1) + "." + matchingTasks.get(i));
+        }
+        System.out.println(line);
+    }
 }
