@@ -1,16 +1,32 @@
 package chatter.task;
 
-import chatter.exception.ChatterException;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+import chatter.exception.ChatterException;
+
+/**
+ * Represents a task with a deadline.
+ * A {@code Deadline} has a description and a due date/time.
+ * Inherits from {@link Task}.
+ */
 public class Deadline extends Task{
     protected LocalDateTime by;
+
+    /** Formatter for parsing input date/time strings */
     private static final DateTimeFormatter INPUT_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+
+    /** Formatter for displaying date/time to the user */
     private static final DateTimeFormatter OUTPUT_FORMAT = DateTimeFormatter.ofPattern("MMM dd yyyy h:mma");
 
+    /**
+     * Constructs a {@code Deadline} task with the given description and due date/time string.
+     *
+     * @param description the description of the task
+     * @param byStr the deadline of the task in {@code yyyy-MM-dd HHmm} format
+     * @throws ChatterException if {@code byStr} is not in the correct format
+     */
     public Deadline(String description, String byStr) throws ChatterException {
         super(description);
         try {
