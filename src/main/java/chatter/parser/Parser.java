@@ -1,5 +1,9 @@
 package chatter.parser;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 import chatter.exception.ChatterException;
 import chatter.storage.Storage;
 import chatter.task.Deadline;
@@ -9,11 +13,22 @@ import chatter.task.TaskList;
 import chatter.task.ToDos;
 import chatter.ui.Ui;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-
+/**
+ * Interprets user input commands and executes
+ * the corresponding operations on the task list}.
+ */
 public class Parser {
+    /**
+     * Parses the given user input, performs the corresponding action
+     * on the {@link TaskList}, updates the {@link Storage}, and interacts with the {@link Ui}.
+     *
+     * @param input The input string entered by the user.
+     * @param tasks The {@code TaskList} that stores all current tasks.
+     * @param ui The {@code Ui} object used to display messages to the user.
+     * @param storage The {@code Storage} object used to persist changes.
+     * @return {@code true} if the input is "bye" (exit command), {@code false} otherwise.
+     * @throws ChatterException If the command is invalid or has incorrect format.
+     */
     public static boolean parse(String input, TaskList tasks, Ui ui, Storage storage)
             throws ChatterException {
 

@@ -4,21 +4,45 @@ import java.util.ArrayList;
 
 import chatter.exception.ChatterException;
 
+/**
+ * Represents a collection of {@link Task} objects.
+ * Provides methods to add, remove, and access tasks.
+ */
 public class TaskList {
+    /** Internal list storing the tasks */
     private final ArrayList<Task> tasks;
 
+    /**
+     * Constructs an empty {@code TaskList}.
+     */
     public TaskList() {
         this.tasks = new ArrayList<>();
     }
 
+    /**
+     * Constructs a {@code TaskList} with an existing list of tasks.
+     *
+     * @param tasks {@link ArrayList} of tasks to initialize the {@code TaskList} with.
+     */
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
     }
 
+    /**
+     * Adds a task to the {@code TaskList}.
+     *
+     * @param t {@code Task} to add.
+     */
     public void add(Task t) {
         tasks.add(t);
     }
 
+    /**
+     * Removes the task at the specified index.
+     *
+     * @param index Index of the task to remove.
+     * @throws ChatterException If the index is out of bounds.
+     */
     public void remove(int index) throws ChatterException {
         if (index < 0 || index >= tasks.size()) {
             throw new ChatterException("You don't have that many task!");
@@ -26,6 +50,13 @@ public class TaskList {
         tasks.remove(index);
     }
 
+    /**
+     * Returns the task at the specified index.
+     *
+     * @param index Index of the task to retrieve.
+     * @return {@code Task} at the given index.
+     * @throws ChatterException If the index is out of bounds.
+     */
     public Task get(int index) throws ChatterException {
         if (index < 0 || index >= tasks.size()) {
             throw new ChatterException("You don't have that many task!");
@@ -33,10 +64,20 @@ public class TaskList {
         return tasks.get(index);
     }
 
+    /**
+     * Returns the number of tasks in the {@code TaskList}.
+     *
+     * @return Number of tasks.
+     */
     public int size() {
         return tasks.size();
     }
 
+    /**
+     * Returns the internal list of all tasks.
+     *
+     * @return {@code ArrayList} of tasks.
+     */
     public ArrayList<Task> getAllTasks() {
         return tasks;
     }
