@@ -34,7 +34,7 @@ public class Parser {
             ToDos t = new ToDos(parts[1].trim());
             tasks.add(t);
             storage.save(tasks);
-            ui.showAdded(t, tasks.size());
+            ui.showAdded(t, tasks.getSize());
             return false;
         case "deadline":
             if (parts.length < 2 || !parts[1].contains("/by")) {
@@ -47,7 +47,7 @@ public class Parser {
             Deadline d = new Deadline(details[0].trim(), details[1].trim());
             tasks.add(d);
             storage.save(tasks);
-            ui.showAdded(d, tasks.size());
+            ui.showAdded(d, tasks.getSize());
             return false;
         case "event":
             if (parts.length < 2 || !parts[1].contains("/from") || !parts[1].contains("/to")) {
@@ -66,7 +66,7 @@ public class Parser {
             Events e = new Events(fromSplit[0].trim(), toSplit[0].trim(), toSplit[1].trim());
             tasks.add(e);
             storage.save(tasks);
-            ui.showAdded(e, tasks.size());
+            ui.showAdded(e, tasks.getSize());
             return false;
         case "delete":
             if (parts.length < 2) {
@@ -77,7 +77,7 @@ public class Parser {
                 Task deleteTask = tasks.get(index);
                 tasks.remove(index);
                 storage.save(tasks);
-                ui.showDeleted(deleteTask, tasks.size());
+                ui.showDeleted(deleteTask, tasks.getSize());
             } catch (NumberFormatException nfe) {
                 throw new ChatterException("Task number must be an integer!");
             }
