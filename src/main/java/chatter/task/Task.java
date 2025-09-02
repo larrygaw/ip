@@ -23,6 +23,15 @@ public abstract class Task {
         isDone = false;
     }
 
+    /**
+     * Returns the description of this task.
+     *
+     * @return the task description as a string
+     */
+    public String getDescription() {
+        return description;
+    }
+
     public abstract String toSaveFormat();
 
     public static Task fromSaveFormat(String line) throws ChatterException {

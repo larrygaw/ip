@@ -121,6 +121,14 @@ public class Parser {
                 throw new ChatterException("Invalid date format! Please use yyyy-MM-dd!");
             }
             return false;
+        case "find":
+            if (parts.length < 2) {
+                throw new ChatterException("Please enter what you are looking for!");
+            }
+            String keyword = parts[1];
+            TaskList matchingTasks = tasks.findMatching(keyword);
+            ui.showFound(matchingTasks);
+            return false;
         default:
             throw new ChatterException("SORRY! I am not qualified to do this!");
         }
