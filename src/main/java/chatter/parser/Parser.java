@@ -7,10 +7,10 @@ import java.time.format.DateTimeParseException;
 import chatter.exception.ChatterException;
 import chatter.storage.Storage;
 import chatter.task.Deadline;
-import chatter.task.Events;
+import chatter.task.Event;
 import chatter.task.Task;
 import chatter.task.TaskList;
-import chatter.task.ToDos;
+import chatter.task.ToDo;
 import chatter.ui.Ui;
 
 /**
@@ -46,7 +46,7 @@ public class Parser {
             if (parts.length < 2 || parts[1].isBlank()) {
                 throw new ChatterException("todoTask must have a description!");
             }
-            ToDos t = new ToDos(parts[1].trim());
+            ToDo t = new ToDo(parts[1].trim());
             tasks.add(t);
             storage.save(tasks);
             ui.showAdded(t, tasks.getSize());
@@ -78,7 +78,7 @@ public class Parser {
                 throw new ChatterException("/from and /to must be followed by "
                         + "event start and end time in yyyy-MM-dd HHmm format respectively!");
             }
-            Events e = new Events(fromSplit[0].trim(), toSplit[0].trim(), toSplit[1].trim());
+            Event e = new Event(fromSplit[0].trim(), toSplit[0].trim(), toSplit[1].trim());
             tasks.add(e);
             storage.save(tasks);
             ui.showAdded(e, tasks.getSize());

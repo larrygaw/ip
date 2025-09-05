@@ -5,14 +5,14 @@ package chatter.task;
  * A {@code ToDos} object has a description.
  * Inherits from {@link Task}.
  */
-public class ToDos extends Task{
+public class ToDo extends Task {
 
     /**
      * Creates a new {@code ToDos} task with the given description.
      *
      * @param description the description of the to-do task
      */
-    public ToDos(String description) {
+    public ToDo(String description) {
         super(description);
     }
 

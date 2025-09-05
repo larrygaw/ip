@@ -11,14 +11,14 @@ import chatter.exception.ChatterException;
  * A {@code Deadline} has a description and a due date/time.
  * Inherits from {@link Task}.
  */
-public class Deadline extends Task{
-    protected LocalDateTime by;
-
+public class Deadline extends Task {
     /** Formatter for parsing input date/time strings */
     private static final DateTimeFormatter INPUT_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
 
     /** Formatter for displaying date/time to the user */
     private static final DateTimeFormatter OUTPUT_FORMAT = DateTimeFormatter.ofPattern("MMM dd yyyy h:mma");
+
+    protected LocalDateTime by;
 
     /**
      * Constructs a {@code Deadline} task with the given description and due date/time string.
