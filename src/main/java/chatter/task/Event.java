@@ -11,15 +11,15 @@ import chatter.exception.ChatterException;
  * A {@code Event} has a description and a start and end time.
  * Inherits from {@link Task}.
  */
-public class Events extends Task{
-    protected LocalDateTime from;
-    protected LocalDateTime to;
-
+public class Event extends Task {
     /** Formatter for parsing input date/time strings */
     private static final DateTimeFormatter INPUT_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
 
     /** Formatter for displaying date/time to the user */
     private static final DateTimeFormatter OUTPUT_FORMAT = DateTimeFormatter.ofPattern("MMM dd yyyy h:mma");
+
+    protected LocalDateTime from;
+    protected LocalDateTime to;
 
     /**
      * Constructs an Event task with a description, start time, and end time.
@@ -29,7 +29,7 @@ public class Events extends Task{
      * @param toStr End time of the event in yyyy-MM-dd HHmm format.
      * @throws ChatterException If the date format is invalid or end time is before/equal to start time.
      */
-    public Events(String description, String fromStr, String toStr) throws ChatterException {
+    public Event(String description, String fromStr, String toStr) throws ChatterException {
         super(description);
         try {
             this.from = LocalDateTime.parse(fromStr, INPUT_FORMAT);

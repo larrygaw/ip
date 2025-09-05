@@ -1,7 +1,7 @@
 package chatter.storage;
 
 import chatter.task.TaskList;
-import chatter.task.ToDos;
+import chatter.task.ToDo;
 import org.junit.jupiter.api.Test;
 
 import java.nio.file.Files;
@@ -17,7 +17,7 @@ public class StorageTest {
         Path tempFile = Files.createTempFile("test", ".txt");
         Storage storage = new Storage(tempFile.toString());
         TaskList tasks = new TaskList();
-        ToDos task = new ToDos("Testing");
+        ToDo task = new ToDo("Testing");
         tasks.add(task);
         storage.save(tasks);
         List<String> lines = Files.readAllLines(tempFile);

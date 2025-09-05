@@ -72,7 +72,7 @@ public abstract class Task {
         boolean isDone = parts[1].equals("1");
         switch (type) {
         case "T":
-            Task tt = new ToDos(parts[2]);
+            Task tt = new ToDo(parts[2]);
             if (isDone) {
                 tt.markAsDone();
             }
@@ -84,7 +84,7 @@ public abstract class Task {
             }
             return td;
         case "E":
-            Task te = new Events(parts[2], parts[3], parts[4]);
+            Task te = new Event(parts[2], parts[3], parts[4]);
             if (isDone) {
                 te.markAsDone();
             }

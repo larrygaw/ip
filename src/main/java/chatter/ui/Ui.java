@@ -6,10 +6,14 @@ import java.util.Scanner;
 
 import chatter.exception.ChatterException;
 import chatter.task.Deadline;
-import chatter.task.Events;
+import chatter.task.Event;
 import chatter.task.Task;
 import chatter.task.TaskList;
 
+/**
+ * Ui class handles all user interactions, including input reading
+ * and output display to the console.
+ */
 public class Ui {
     /** {@link Scanner} for reading user input from the console */
     private final Scanner sc;
@@ -141,10 +145,10 @@ public class Ui {
                     System.out.println("   " + d);
                     found = true;
                 }
-            } else if (task instanceof Events) {
-                Events e = (Events) task;
-                if (!date.isBefore(e.getFrom().toLocalDate()) &&
-                        !date.isAfter(e.getTo().toLocalDate())) {
+            } else if (task instanceof Event) {
+                Event e = (Event) task;
+                if (!date.isBefore(e.getFrom().toLocalDate())
+                        && !date.isAfter(e.getTo().toLocalDate())) {
                     System.out.println("   " + e);
                     found = true;
                 }
@@ -164,7 +168,7 @@ public class Ui {
     public void showFound(TaskList matchingTasks) throws ChatterException {
         System.out.println(line);
         System.out.println("   Here are the matching tasks in your list:");
-        for(int i = 0; i < matchingTasks.size(); i++) {
+        for (int i = 0; i < matchingTasks.getSize(); i++) {
             System.out.println("   " + (i + 1) + "." + matchingTasks.get(i));
         }
         System.out.println(line);
