@@ -1,6 +1,7 @@
 package chatter.ui;
 
 import chatter.exception.ChatterException;
+import chatter.gui.Main;
 import chatter.parser.Parser;
 import chatter.storage.Storage;
 import chatter.task.TaskList;
@@ -8,7 +9,7 @@ import chatter.task.TaskList;
 /**
  * Main class that drives the Chatter application.
  * Handles initialization of the {@link Storage}, {@link TaskList}, and {@link Ui},
- * and runs the main interaction loop with the user.
+ * and provides responses to user input.
  */
 public class Chatter {
     /** Handles reading from and writing to the tasks file */
@@ -34,32 +35,25 @@ public class Chatter {
     }
 
     /**
-     * Starts the main application loop.
-     * Continuously reads user commands via {@link Ui#readCommand()} and
-     * executes them using {@link Parser#parse(String, TaskList, Ui, Storage)}.
-     * The loop continues until the user issues the {@code bye} command.
+     * Generates a response for the given user input.
+     *
+     * @param input user input string.
+     * @return response message string
      */
-    public void run() {
-        ui.showWelcome();
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String input = ui.readCommand();
-                isExit = Parser.parse(input, tasks, ui, storage);
-            } catch (ChatterException e) {
-                ui.showError(e.getMessage());
-            }
+    public String getResponse(String input) {
+        try {
+            return Parser.parse(input, tasks, ui, storage);
+        } catch (ChatterException e) {
+            return ui.showError(e.getMessage());
         }
     }
 
     /**
-     * The main entry point for the Chatter application.
-     * Initializes a {@code Chatter} instance with the default storage path
-     * and starts the application loop.
-     *
-     * @param args command line arguments (not used)
+     * The main method for Chatter.
+     * Since this application is now GUI-only, this entry point is disabled.
+     * Run {@link Main} instead.
      */
     public static void main(String[] args) {
-        new Chatter("data/tasks.txt").run();
+        System.out.println("Chatter no longer supports CLI mode. Please run Main instead.");
     }
 }

@@ -18,6 +18,7 @@ public class Deadline extends Task {
     /** Formatter for displaying date/time to the user */
     private static final DateTimeFormatter OUTPUT_FORMAT = DateTimeFormatter.ofPattern("MMM dd yyyy h:mma");
 
+    /** Deadline date and time of the task */
     protected LocalDateTime by;
 
     /**

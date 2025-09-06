@@ -2,7 +2,6 @@ package chatter.ui;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Scanner;
 
 import chatter.exception.ChatterException;
 import chatter.task.Deadline;
@@ -11,166 +10,162 @@ import chatter.task.Task;
 import chatter.task.TaskList;
 
 /**
- * Ui class handles all user interactions, including input reading
- * and output display to the console.
+ * Ui class handles all user interactions,
+ * including returning output messages as {@link String}.
  */
 public class Ui {
-    /** {@link Scanner} for reading user input from the console */
-    private final Scanner sc;
-
     /** Divider line used for formatting messages */
-    private final String line = "   ____________________________________________________________";
+    private static final String LINE = "   _______________________________________________________";
 
-    /** Constructs a new {@code Ui} instance with a {@code Scanner} for console input */
+    /** Constructs a new {@code Ui} instance */
     public Ui() {
-        this.sc = new Scanner(System.in);
     }
 
     /**
-     * Reads a line of user input from the console.
+     * Returns the welcome message.
      *
-     * @return the user's input as a String
+     * @return welcome message string
      */
-    public String readCommand() {
-        return sc.nextLine();
-    }
+    public String showWelcome() {
+        return LINE + "\n   Hello! I'm Chatter\n   What can I do for you?\n" + LINE;
 
-    /** Displays the welcome message to the user */
-    public void showWelcome() {
-        System.out.println(line);
-        System.out.println("   Hello! I'm Chatter\n   What can I do for you?");
-        System.out.println(line);
-    }
-
-    /** Displays the exit message to the user */
-    public void showExit() {
-        System.out.println(line);
-        System.out.println("   Bye. Hope to see you again soon!");
-        System.out.println(line);
     }
 
     /**
-     * Displays all tasks currently in the TaskList.
+     * Returns the exit message.
      *
-     * @param tasks the {@link TaskList} to display
+     * @return exit message string
+     */
+    public String showExit() {
+        return LINE + "\n   Bye. Hope to see you again soon!\n" + LINE;
+    }
+
+    /**
+     * Returns a formatted string of all tasks currently in the TaskList.
+     *
+     * @param tasks the {@link TaskList} to display.
+     * @return formatted string of list of tasks
      * @throws ChatterException if accessing any task fails
      */
-    public void showList(TaskList tasks) throws ChatterException {
-        System.out.println(line);
-        System.out.println("   Here are the tasks in your list:");
+    public String showList(TaskList tasks) throws ChatterException {
+        StringBuilder sb = new StringBuilder();
+        sb.append(LINE).append("\n");
+        sb.append("   Here are the tasks in your list:\n");
         for (int i = 0; i < tasks.getSize(); i++) {
-            System.out.println("   " + (i + 1) + "." + tasks.get(i));
+            sb.append("   ").append(i + 1).append(".").append(tasks.get(i)).append("\n");
         }
-        System.out.println(line);
+        sb.append(LINE);
+        return sb.toString();
     }
 
     /**
-     * Displays a message when a task is added.
+     * Returns a message when a task is added.
      *
-     * @param t the task that was added
-     * @param size the new number of tasks in the list
+     * @param t the task that was added.
+     * @param size the new number of tasks in the list.
+     * @return formatted add confirmation string
      */
-    public void showAdded(Task t, int size) {
-        System.out.println(line);
-        System.out.println("   Got it. I've added this task:");
-        System.out.println("     " + t);
-        System.out.println("   Now you have " + size + " tasks in the list.");
-        System.out.println(line);
+    public String showAdded(Task t, int size) {
+        return LINE + "\n   Got it. I've added this task:\n     "
+                + t + "\n   Now you have " + size + " tasks in the list.\n" + LINE;
     }
 
     /**
-     * Displays a message when a task is deleted.
+     * Returns a message when a task is deleted.
      *
-     * @param t the task that was deleted
-     * @param size the new number of tasks in the list
+     * @param t the task that was deleted.
+     * @param size the new number of tasks in the list.
+     * @return formatted delete confirmation string
      */
-    public void showDeleted(Task t, int size) {
-        System.out.println(line);
-        System.out.println("   Noted. I've removed this task:");
-        System.out.println("     " + t);
-        System.out.println("   Now you have " + size + " tasks in the list.");
-        System.out.println(line);
+    public String showDeleted(Task t, int size) {
+        return LINE + "\n   Noted. I've removed this task:\n     "
+                + t + "\n   Now you have " + size + " tasks in the list.\n" + LINE;
     }
 
     /**
-     * Displays a message when a task is marked as done.
+     * Returns a message when a task is marked as done.
      *
-     * @param t the task that was marked
+     * @param t the task that was marked.
+     * @return formatted marked message string
      */
-    public void showMarked(Task t) {
-        System.out.println(line);
-        System.out.println("   Nice! I've marked this task as done:");
-        System.out.println("     " + t);
-        System.out.println(line);
+    public String showMarked(Task t) {
+        return LINE + "\n   Nice! I've marked this task as done:\n     "
+                + t + "\n" + LINE;
     }
 
     /**
-     * Displays a message when a task is unmarked.
+     * Returns a message when a task is unmarked.
      *
-     * @param t the task that was unmarked
+     * @param t the task that was unmarked.
+     * @return formatted unmarked message string
      */
-    public void showUnmarked(Task t) {
-        System.out.println(line);
-        System.out.println("   OK, I've unmarked this task:");
-        System.out.println("     " + t);
-        System.out.println(line);
+    public String showUnmarked(Task t) {
+        return LINE + "\n   OK, I've unmarked this task:\n     "
+                + t + "\n" + LINE;
     }
 
     /**
-     * Displays an error message to the user.
+     * Returns an error message.
      *
-     * @param msg the error message to display
+     * @param msg the error message to display.
+     * @return formatted error message string
      */
-    public void showError(String msg) {
-        System.out.println(line);
-        System.out.println("   " + msg);
-        System.out.println(line);
+    public String showError(String msg) {
+        return LINE + "\n   " + msg + "\n" + LINE;
     }
 
     /**
-     * Displays all tasks that occur on a specified date.
+     * Returns all tasks that occur on a specified date.
      *
-     * @param date the date to filter tasks in yyyy-MM-dd HHmm format
-     * @param tasks the {@code TaskList} to search through
+     * @param date the date to filter tasks.
+     * @param tasks the {@code TaskList} to search through.
+     * @return formatted string of list of tasks on that date or a message if none found
      */
-    public void showTasksOnDate(LocalDate date, TaskList tasks) {
-        System.out.println(line);
-        System.out.println("   Tasks occurring on "
-                + date.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ":");
+    public String showTasksOnDate(LocalDate date, TaskList tasks) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(LINE).append("\n");
+        sb.append("   Tasks occurring on ")
+                .append(date.format(DateTimeFormatter.ofPattern("MMM dd yyyy")))
+                .append(":\n");
         boolean found = false;
         for (Task task : tasks.getAllTasks()) {
             if (task instanceof Deadline) {
-                Deadline d = (Deadline) task;
-                if (d.getDateTime().toLocalDate().equals(date)) {
-                    System.out.println("   " + d);
+                Deadline deadlineTask = (Deadline) task;
+                if (deadlineTask.getDateTime().toLocalDate().equals(date)) {
+                    sb.append("   ").append(deadlineTask).append("\n");
                     found = true;
                 }
             } else if (task instanceof Event) {
-                Event e = (Event) task;
-                if (!date.isBefore(e.getFrom().toLocalDate())
-                        && !date.isAfter(e.getTo().toLocalDate())) {
-                    System.out.println("   " + e);
+                Event eventTask = (Event) task;
+                if (!date.isBefore(eventTask.getFrom().toLocalDate())
+                        && !date.isAfter(eventTask.getTo().toLocalDate())) {
+                    sb.append("   ").append(eventTask).append("\n");
                     found = true;
                 }
             }
         }
         if (!found) {
-            System.out.println("   No tasks on this date.");
+            sb.append("   No tasks on this date.\n");
         }
-        System.out.println(line);
+        sb.append(LINE);
+        return sb.toString();
     }
 
     /**
-     * Displays the list of tasks that match a given find search query.
+     * Returns the list of tasks that match a given find search query.
      *
-     * @param matchingTasks the list of tasks that matched the search keyword
+     * @param matchingTasks the list of tasks that matched the search keyword.
+     * @return formatted matching tasks string
+     * @throws ChatterException if accessing tasks fails
      */
-    public void showFound(TaskList matchingTasks) throws ChatterException {
-        System.out.println(line);
-        System.out.println("   Here are the matching tasks in your list:");
+    public String showFound(TaskList matchingTasks) throws ChatterException {
+        StringBuilder sb = new StringBuilder();
+        sb.append(LINE).append("\n");
+        sb.append("   Here are the matching tasks in your list:\n");
         for (int i = 0; i < matchingTasks.getSize(); i++) {
-            System.out.println("   " + (i + 1) + "." + matchingTasks.get(i));
+            sb.append("   ").append(i + 1).append(".").append(matchingTasks.get(i)).append("\n");
         }
-        System.out.println(line);
+        sb.append(LINE);
+        return sb.toString();
     }
 }
