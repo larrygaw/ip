@@ -18,7 +18,10 @@ public class Event extends Task {
     /** Formatter for displaying date/time to the user */
     private static final DateTimeFormatter OUTPUT_FORMAT = DateTimeFormatter.ofPattern("MMM dd yyyy h:mma");
 
+    /** Start time of the event */
     protected LocalDateTime from;
+
+    /** End time of the event */
     protected LocalDateTime to;
 
     /**

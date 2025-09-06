@@ -7,7 +7,10 @@ import chatter.exception.ChatterException;
  * Provides the description and completion status, as well as common methods for marking tasks.
  */
 public abstract class Task {
+    /** Description of the task */
     protected String description;
+
+    /** Completion status of the task */
     protected boolean isDone;
 
     /**
