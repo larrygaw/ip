@@ -127,24 +127,24 @@ public class Ui {
         sb.append("   Tasks occurring on ")
                 .append(date.format(DateTimeFormatter.ofPattern("MMM dd yyyy")))
                 .append(":\n");
-        boolean found = false;
+        boolean isFound = false;
         for (Task task : tasks.getAllTasks()) {
             if (task instanceof Deadline) {
                 Deadline deadlineTask = (Deadline) task;
                 if (deadlineTask.getDateTime().toLocalDate().equals(date)) {
                     sb.append("   ").append(deadlineTask).append("\n");
-                    found = true;
+                    isFound = true;
                 }
             } else if (task instanceof Event) {
                 Event eventTask = (Event) task;
                 if (!date.isBefore(eventTask.getFrom().toLocalDate())
                         && !date.isAfter(eventTask.getTo().toLocalDate())) {
                     sb.append("   ").append(eventTask).append("\n");
-                    found = true;
+                    isFound = true;
                 }
             }
         }
-        if (!found) {
+        if (!isFound) {
             sb.append("   No tasks on this date.\n");
         }
         sb.append(LINE);
