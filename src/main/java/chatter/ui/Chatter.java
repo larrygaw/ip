@@ -52,7 +52,9 @@ public class Chatter {
     /**
      * The main method for Chatter.
      * Since this application is now GUI-only, this entry point is disabled.
-     * Run {@link Main} instead.
+     * Prints advisory message to run {@link Main} instead.
+     *
+     * @param args command line arguments (not used)
      */
     public static void main(String[] args) {
         System.out.println("Chatter no longer supports CLI mode. Please run Main instead.");
