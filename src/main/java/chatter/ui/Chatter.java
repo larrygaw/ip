@@ -29,6 +29,7 @@ public class Chatter {
      * @param filePath the path to the file for storing tasks
      */
     public Chatter(String filePath) {
+        assert filePath != null : "File path must not be null";
         this.ui = new Ui();
         this.storage = new Storage(filePath);
         this.tasks = storage.load();
