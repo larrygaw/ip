@@ -15,7 +15,7 @@ import chatter.ui.Ui;
 
 /**
  * Interprets user input commands and executes
- * the corresponding operations on the task list}.
+ * the corresponding operations on the task list.
  */
 public class Parser {
     /**

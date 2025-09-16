@@ -58,6 +58,18 @@ public class Event extends Task {
     }
 
     @Override
+    public boolean equals(Object obj) {
+        if (!super.equals(obj)) {
+            return false;
+        }
+        if (!(obj instanceof Event)) {
+            return false;
+        }
+        Event newEventTask = (Event) obj;
+        return from.equals(newEventTask.from) && to.equals(newEventTask.to);
+    }
+
+    @Override
     public String toSaveFormat() {
         if (isDone) {
             return "E | 1 | " + description + " | " + from.format(INPUT_FORMAT) + " | " + to.format(INPUT_FORMAT);
