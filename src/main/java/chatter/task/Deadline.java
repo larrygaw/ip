@@ -42,6 +42,18 @@ public class Deadline extends Task {
     }
 
     @Override
+    public boolean equals(Object obj) {
+        if (!super.equals(obj)) {
+            return false;
+        }
+        if (!(obj instanceof Deadline)) {
+            return false;
+        }
+        Deadline newDeadlineTask = (Deadline) obj;
+        return by.equals(newDeadlineTask.by);
+    }
+
+    @Override
     public String toSaveFormat() {
         if (isDone) {
             return "D | 1 | " + description + " | " + by.format(INPUT_FORMAT);

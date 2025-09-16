@@ -32,8 +32,14 @@ public class TaskList {
      * Adds a task to the {@code TaskList}.
      *
      * @param t {@code Task} to add.
+     * @throws ChatterException If the given task already exist in the task list.
      */
-    public void add(Task t) {
+    public void add(Task t) throws ChatterException {
+        for (Task existing: tasks) {
+            if (t.equals(existing)) {
+                throw new ChatterException("This task already exists in your task list!");
+            }
+        }
         tasks.add(t);
     }
 
@@ -89,7 +95,7 @@ public class TaskList {
      * @param keyword the keyword to search for in task descriptions
      * @return a new {@code TaskList} with all matching tasks
      */
-    public TaskList findMatching(String keyword) {
+    public TaskList findMatching(String keyword) throws ChatterException {
         TaskList matching = new TaskList();
         for (Task t : tasks) {
             if (t.getDescription().contains(keyword)) {
