@@ -44,7 +44,6 @@ public class DialogBox extends HBox {
             e.printStackTrace();
         }
         dialog.setText(text);
-        //displayPicture.setImage(displayPic.getImage());
         int index = this.getChildren().indexOf(displayPicture);
         this.getChildren().set(index, displayPic);
     }

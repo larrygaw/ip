@@ -22,16 +22,6 @@ public class Ui {
     }
 
     /**
-     * Returns the welcome message.
-     *
-     * @return welcome message string
-     */
-    public String showWelcome() {
-        return LINE + "\n   Hello! I'm Chatter\n   What can I do for you?\n" + LINE;
-
-    }
-
-    /**
      * Returns the exit message.
      *
      * @return exit message string

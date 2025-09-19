@@ -1,9 +1,10 @@
 package chatter.task;
 
-import chatter.exception.ChatterException;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import chatter.exception.ChatterException;
 
 public class TaskListTest {
 
