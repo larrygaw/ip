@@ -10,9 +10,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.shape.Circle;
 
 /**
  * Represents a dialog box consisting of an {@link ImageView} to represent the speaker's face
@@ -32,9 +32,9 @@ public class DialogBox extends HBox {
      * Loads the FXML layout and assigns the given text and image.
      *
      * @param text The text to display in the dialog.
-     * @param img The image representing the speaker's avatar.
+     * @param displayPic The image representing the speaker's avatar.
      */
-    private DialogBox(String text, Image img) {
+    private DialogBox(String text, ImageView displayPic) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
             fxmlLoader.setController(this);
@@ -44,7 +44,9 @@ public class DialogBox extends HBox {
             e.printStackTrace();
         }
         dialog.setText(text);
-        displayPicture.setImage(img);
+        //displayPicture.setImage(displayPic.getImage());
+        int index = this.getChildren().indexOf(displayPicture);
+        this.getChildren().set(index, displayPic);
     }
 
     /**
@@ -64,11 +66,11 @@ public class DialogBox extends HBox {
      * The image is displayed on the right side of the text.
      *
      * @param text The user's message.
-     * @param img The user's avatar image.
+     * @param userPic The user's avatar image.
      * @return A {@code DialogBox} displaying the user's dialog.
      */
-    public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img);
+    public static DialogBox getUserDialog(String text, ImageView userPic) {
+        return new DialogBox(text, userPic);
     }
 
     /**
@@ -76,13 +78,26 @@ public class DialogBox extends HBox {
      * The dialog box is flipped so the image appears on the left of the text.
      *
      * @param text Chatter's response message.
-     * @param img Chatter's avatar image.
+     * @param chatterPic Chatter's avatar image.
      * @return A {@code DialogBox} displaying Chatter's dialog.
      */
-    public static DialogBox getChatterDialog(String text, Image img) {
-        var db = new DialogBox(text, img);
+    public static DialogBox getChatterDialog(String text, ImageView chatterPic) {
+        var db = new DialogBox(text, chatterPic);
         db.flip();
         return db;
+    }
+
+    /**
+     * Styles the profile picture to be circular.
+     *
+     * @param imageView The ImageView to style.
+     */
+    public static void styleProfilePic(ImageView imageView) {
+        imageView.setFitWidth(80);
+        imageView.setFitHeight(80);
+        double radius = 40;
+        Circle clip = new Circle(radius, radius, radius);
+        imageView.setClip(clip);
     }
 }
 
